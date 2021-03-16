@@ -1,0 +1,136 @@
+{% extends 'baseadminmobile.html.twig' %}
+
+{% block title %}Hello MobileAdminstrationController!{% endblock %}
+
+{% block body %}
+
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Ajouter Categorie</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="formulaire">
+                    <div class="form-group">
+                        <label for="nom">Nom</label>
+                        <input type="text" class="form-control" id="nom" aria-describedby="nomHelp">
+                    </div>
+                    <div class="custom-file mb-3">
+                        <input type="file" class="custom-file-input" id="file" required>
+                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                      </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+              <button type="button" id="savecategorie" class="btn btn-success">Valider</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <ion-app>
+        <ion-tabs>
+    
+          <ion-tab tab="music">
+            <ion-header translucent>
+              <ion-toolbar>
+                <ion-title>Categorie</ion-title>
+              </ion-toolbar>
+            </ion-header>
+    
+            <ion-content fullscreen class="ion-padding">
+                <div class="container text-right mb-3">
+                    <ion-button size="large" type="button" data-toggle="modal" data-target="#staticBackdrop">Ajouter</ion-button>
+                </div>
+                {% for item in categorie %}
+                <ion-card>
+                    <img src="{{item.image}}" class="img__categorie" />
+                    <ion-card-header>
+                      <ion-card-subtitle>Nom</ion-card-subtitle>
+                      <ion-card-title>{{item.nom}}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                      Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
+                    </ion-card-content>
+                  </ion-card> 
+                {% endfor %}
+           </ion-content>
+          </ion-tab>
+    
+          <ion-tab tab="movies">
+            <ion-header translucent>
+              <ion-toolbar>
+                <ion-title>Produits</ion-title>
+              </ion-toolbar>
+            </ion-header>
+    
+            <ion-content fullscreen class="ion-padding">
+                {{ include ("mobile_adminstration/produits.html.twig") }}            
+            </ion-content>
+          </ion-tab>
+    
+          <ion-tab tab="games">
+            <ion-header translucent>
+              <ion-toolbar>
+                <ion-title>Paramètre</ion-title>
+              </ion-toolbar>
+            </ion-header>
+    
+            <ion-content fullscreen class="ion-padding">
+                {{ include ("mobile_adminstration/param.html.twig") }}
+            </ion-content>
+          </ion-tab>
+    
+          <ion-tab-bar slot="bottom">
+            <ion-tab-button tab="music">
+              <ion-label>Music</ion-label>
+              <ion-icon name="musical-note"></ion-icon>
+            </ion-tab-button>
+            <ion-tab-button tab="movies">
+              <ion-label>Movies</ion-label>
+              <ion-icon name="videocam"></ion-icon>
+            </ion-tab-button>
+            <ion-tab-button tab="games">
+              <ion-label>Games</ion-label>
+              <ion-icon name="game-controller"></ion-icon>
+            </ion-tab-button>
+          </ion-tab-bar>
+        </ion-tabs>
+      </ion-app>
+      <script>
+        console.log("yaya");
+      var btnSubmitCat=document.getElementById('savecategorie');
+      btnSubmitCat.addEventListener('click',function(e){
+          var nom=document.getElementById('nom');
+          let val=nom.value;
+          console.log(val);
+          let files = new FormData();
+          files.append('audio', $('#file')[0].files[0]);
+          console.log(files.get('audio'));
+          $.ajax({
+            type: 'post',
+            url: 'http://127.0.0.1:8000/yaya',
+            processData: false,
+            contentType: false,
+            data: files,
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+      })
+      </script>
+{% endblock %}
