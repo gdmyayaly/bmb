@@ -594,6 +594,9 @@ ol {
 .trend__item {
 	overflow: hidden;
 	margin-bottom: 35px;
+	box-shadow: 0 3px 30px 0 rgb(0 0 0 / 11%);
+	padding: 10px;
+	border-radius: 15px;
 }
 
 .trend__item__pic {
@@ -3864,4 +3867,5 @@ ol {
 }
 .nom__du__produit a{
 	color: white !important;
+	text-decoration: none;
 }

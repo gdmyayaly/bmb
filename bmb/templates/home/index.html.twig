@@ -34,47 +34,175 @@
     </div>
 </div>
 </section>
-
 <section class="product spad">
+    {% for item in category %}
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-3">
                 <div class="section-title">
-                    <h4>Nos produits</h4>
+                    <h4>{{item.nom}}</h4>
                 </div>
             </div>
-            <div class="col-lg-9 col-md-9">
-                <ul class="filter__controls">
-                    <li class="active" data-filter="*">Tout</li>
-                    {% for item in category %}
-                    <li data-filter=".{{item.slug}}">{{item.nom |upper}}</li>
-                    {% endfor %}
-                    <!-- <li data-filter=".aluminium">ALUMINIUM</li>
-                    <li data-filter=".vitrerie">VITRERIE</li>
-                    <li data-filter=".quincailleriegeneral">QUINCAILLERIE GENERALE</li>
-                    <li data-filter=".symtemeinox">SYSTEME INOX</li>
-                    <li data-filter=".ferforge">FER FORGE</li> -->
-                </ul>
-            </div>
         </div>
-        <div class="row property__gallery">
-            {% for item in produit %}
-            <div class="col-lg-3 col-md-4 col-sm-6 mix {{item.categorie.slug}}">
+         <div class="row property__gallery">
+             {% for produits in item.produits %}
+             <div class="col-lg-3 col-md-4 col-sm-6 mix aluminium">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="{{item.image}}">
+                    <div class="product__item__pic set-bg">
+                        <div class="text-center">
+                            <img src="{{produits.image}}" class="text-center" alt="">
+                        </div>
                         <ul class="product__hover">
-                            <li><a href="{{item.image}}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                            <li><a href="{{produits.image}}" class="image-popup"><span class="arrow_expand"></span></a></li>
                             <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                             <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">
-                        <h6 class="nom__du__produit"><a href="product-details.html">{{item.nom}}</a></h6>
+                        <h6 class="nom__du__produit"><a href="product-details.html">{{produits.nom}}</a></h6>
                     </div>
                 </div>
+            </div>                 
+             {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</section>
+<section class="trend spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="trend__content">
+                    <div class="section-title">
+                        <h4>Meilleur Vente</h4>
+                    </div>
+                    {% for item in produit %}
+                        {% if loop.index <= 4 %}
+                        <div class="trend__item">
+                            <div class="trend__item__pic">
+                                <img src="{{item.image}}" alt="">
+                            </div>
+                            <div class="trend__item__text">
+                                <h6>{{item.nom}}</h6>
+                                <div class="product__price">DIMENSION: 25 x 1200 mm</div>
+                                <a href="product-details.html" class="commander">Commander</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
-            {% endfor %}
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="trend__content">
+                    <div class="section-title">
+                        <h4>En promotions</h4>
+                    </div>
+                    {% for item in produit %}
+                        {% if loop.index <= 4 %}
+                        <div class="trend__item">
+                            <div class="trend__item__pic">
+                                <img src="{{item.image}}" alt="">
+                            </div>
+                            <div class="trend__item__text">
+                                <h6>{{item.nom}}</h6>
+                                <div class="product__price">DIMENSION: 25 x 1200 mm</div>
+                                <a href="product-details.html" class="commander">Commander</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="trend__content">
+                    <div class="section-title">
+                        <h4>Les plus vues</h4>
+                    </div>
+                    {% for item in produit %}
+                        {% if loop.index <= 4 %}
+                        <div class="trend__item">
+                            <div class="trend__item__pic">
+                                <img src="{{item.image}}" alt="">
+                            </div>
+                            <div class="trend__item__text">
+                                <h6>{{item.nom}}</h6>
+                                <div class="product__price">DIMENSION: 25 x 1200 mm</div>
+                                <a href="product-details.html" class="commander">Commander</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 </section>
+<footer class="footer">
+    <div class="container p-5">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="footer__img text-center">
+                    <img src="https://www.bmb.sn/wp-content/uploads/2019/10/logo-bmb-150x150.png" alt="">
+                </div>
+                <p class="mt-5 bmb__dec">ETS MBAYE ET FRERES est une entreprise qui a été créé en 2001 par Bollé Mbaye, donc qui dispose de 20 ans d’expérience pour servir.</p>
+            </div>
+            <div class="col-12 col-md-4">
+                <h4 class="titre__contact text-center">Contacts</h4>
+                <div class="mt-5">
+                    <p class="detail__one p-1"><strong>Adresse</strong> HLM I Av Cheikh Ahmadou Bamba</p>
+                    <p class="detail__one p-1"><strong>Email</strong> contact@bmb.sn</p>
+                    <p class="detail__one p-1"><strong>Fixe</strong> +221 33 864 75 15</p>
+                    <p class="detail__one p-1"><strong>Fax</strong> +221 33 864 74 14</p>
+                    <p class="detail__one p-1"><strong>Horaires</strong>  Lundi 8:00 am – 18:00 pm</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <h4 class="titre__contact">Services</h4>
+                <ul class="ul__desc__service pt-5">
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-user"></span>
+                            Conseil Technique
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-edit"></span>
+                            DEVIS
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-edit"></span>
+                            Polissage du verre
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-edit"></span>
+                            Biseautage du verre
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-edit"></span>
+                            Decoupe laser
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa fa-edit"></span>
+                            Livraison
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="btn-whatshapp">
+    <a  target="_blank" href="https://wa.me/221772406480?text=Bonjour">
+        <img src="img/whatsapp.svg" alt="">
+    </a>
+</div>
 {% endblock %}
