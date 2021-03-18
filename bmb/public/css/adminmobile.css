@@ -4,3 +4,6 @@
     max-height: 300px;
     max-width: 100%;
 }
+.hr{
+    border-top: 2px solid red !important;
+}

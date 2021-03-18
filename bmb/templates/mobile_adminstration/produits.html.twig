@@ -1,3 +1,146 @@
-<h1 class="text-center">
-    I am Produits
-</h1>
+{% extends 'baseadminmobile.html.twig' %}
+
+{% block title %}Hello MobileAdminstrationController!{% endblock %}
+
+{% block body %}
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Ajouter un Produit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="formulaire">
+              <div class="form-group">
+                  <label for="nom">Nom</label>
+                  <input type="text" class="form-control" id="nom"  aria-describedby="nomHelp">
+              </div>
+              <div class="form-group mb-3">
+                <label for="imga-cat" class="label-file">Choisir une image</label>
+                <input id="imga-cat" class="input-file"  type="file">
+              </div>
+              <div class="form-group" id="image-cat-name">
+                <label for="nom">Nom de l'image</label>
+                <input type="text" class="form-control" id="nom-image"  aria-describedby="nomHelp">
+            </div>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control"  id="description" rows="2"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="nom">Couleur</label>
+                <input type="text" class="form-control" id="couleur"  aria-describedby="nomHelp">
+            </div>
+            <div class="form-group">
+              <label for="nom">Dimmension</label>
+              <input type="text" class="form-control" id="dimmension"  aria-describedby="nomHelp">
+          </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+        <button type="button" id="saveproduit"  class="btn btn-success">Valider</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ion-header translucent>
+  <a href="/mobile/home" style="text-decoration: none;color:black">
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-buttons>
+    <ion-title>Standard</ion-title>
+  
+  </ion-toolbar>
+</a>
+</ion-header>
+<ion-content fullscreen class="ion-padding">
+  <div class="container text-right mb-3">
+    <ion-button size="large" type="button" data-toggle="modal" data-target="#staticBackdrop">Ajouter</ion-button>
+  </div>
+  {% for item in produits %}
+<ion-card>
+<img src="{{ asset(item.image) }}"  class="img__categorie" alt="">
+  <ion-card-header>
+    <ion-card-subtitle>Nom</ion-card-subtitle>
+    <ion-card-title>{{item.nom}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    {{item.description}}
+  </ion-card-content>
+  <div  class="container text-center">
+    <ion-icon id="deteleCat" data-idcat="{{item.id}}" style="height: 35px;width:35px;color:red;" name="trash-outline"></ion-icon>
+  </div>
+</ion-card> 
+{% endfor %}
+</ion-content>
+<script>
+  $(document).ready(function(){
+          var url="http://127.0.0.1:8000/mobile/";
+          var btnSubmitProduits=document.getElementById('saveproduit');
+
+          $('#image-cat-name').hide();
+          $('#imga-cat').change(function(){
+            let a=$('#imga-cat')[0].files[0].name;
+            $('#nom-image').val(a)
+            $('#image-cat-name').show();
+          })
+          $('#deteleCat').click(function (e) {
+            console.log(e);
+            console.log($('#deteleCat').attr('data-idcat'));
+            var formData= new FormData();
+            formData.append('id',$('#deteleCat').attr('data-idcat'));
+            $.ajax({
+            type: 'post',
+            url: url+'removeproduits',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (response) {
+                console.log(response);
+                window.location.reload();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });});
+          btnSubmitProduits.addEventListener('click',function(e){
+            var nom=document.getElementById('nom');
+            var couleur=document.getElementById('couleur');
+            var dimmension=document.getElementById('dimmension');
+            var description=document.getElementById('description');
+            var formData= new FormData();
+            formData.append('nom',nom.value); 
+            formData.append('couleur',couleur.value); 
+            formData.append('dimmension',dimmension.value); 
+            formData.append('description',description.value);
+            formData.append('image',$('#imga-cat')[0].files[0]);
+            formData.append('nomImage',$('#nom-image').val()); 
+            $.ajax({
+            type: 'post',
+            url: url+'saveproduits',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (response) {
+                console.log(response);
+                window.location.reload();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+          })
+       
+       
+        });
+      
+</script>
+{% endblock %}

@@ -37,6 +37,21 @@ class Produits
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $couleur;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $dimmenssion;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $description;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,4 +104,41 @@ class Produits
 
         return $this;
     }
+
+    public function getCouleur(): ?string
+    {
+        return $this->couleur;
+    }
+
+    public function setCouleur(string $couleur): self
+    {
+        $this->couleur = $couleur;
+
+        return $this;
+    }
+
+    public function getDimmenssion(): ?string
+    {
+        return $this->dimmenssion;
+    }
+
+    public function setDimmenssion(string $dimmenssion): self
+    {
+        $this->dimmenssion = $dimmenssion;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
 }

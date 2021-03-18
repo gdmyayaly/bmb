@@ -12,33 +12,92 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">Ajouter Categorie</h5>
+              <h5 class="modal-title" id="staticBackdropLabel">Ajouter une Categorie</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
+              <form>
                 <div class="formulaire">
                     <div class="form-group">
                         <label for="nom">Nom</label>
-                        <input type="text" class="form-control" id="nom" aria-describedby="nomHelp">
+                        <input type="text" class="form-control" id="nom"  aria-describedby="nomHelp">
                     </div>
-                    <div class="custom-file mb-3">
-                        <input type="file" class="custom-file-input" id="file" required>
-                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                        <div class="invalid-feedback">Example invalid custom file feedback</div>
-                      </div>
+                    <div class="form-group mb-3">
+                      <label for="imga-cat" class="label-file">Choisir une image</label>
+                      <input id="imga-cat" class="input-file"  type="file">
+                    </div>
+                    <div class="form-group" id="image-cat-name">
+                      <label for="nom">Nom de l'image</label>
+                      <input type="text" class="form-control" id="nom-image"  aria-describedby="nomHelp">
+                  </div>
+                    <div class="form-group">
+                      <label for="description">Description</label>
+                      <textarea class="form-control"  id="description" rows="2"></textarea>
+                    </div>
                 </div>
+              </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-              <button type="button" id="savecategorie" class="btn btn-success">Valider</button>
+              <button type="button" id="savecategorie"  class="btn btn-success">Valider</button>
             </div>
           </div>
         </div>
       </div>
-
-
+      <div class="modal fade" id="addcatgorieinput" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Ajouter une information à Categorie</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="formulaire">
+                    <div class="form-group">
+                        <label for="nom">Nom</label>
+                        <input type="text" class="form-control" id="nomInput"  aria-describedby="nomHelp">
+                    </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+              <button type="button" id="savecategorieinput"  class="btn btn-success">Valider</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="addproduitinput" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Ajouter une information à Produits</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="formulaire">
+                    <div class="form-group">
+                        <label for="nom">Nom</label>
+                        <input type="text" class="form-control" id="nomInputProduis"  aria-describedby="nomHelp">
+                    </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+              <button type="button" id="saveproduitsinput"  class="btn btn-success">Valider</button>
+            </div>
+          </div>
+        </div>
+      </div>
     <ion-app>
         <ion-tabs>
     
@@ -50,22 +109,27 @@
             </ion-header>
     
             <ion-content fullscreen class="ion-padding">
-                <div class="container text-right mb-3">
-                    <ion-button size="large" type="button" data-toggle="modal" data-target="#staticBackdrop">Ajouter</ion-button>
+              <div class="container text-right mb-3">
+                <ion-button size="large" type="button" data-toggle="modal" data-target="#staticBackdrop">Ajouter</ion-button>
+              </div>
+              {% for item in categorie %}
+              <ion-card>
+              <a href="/mobile/produits">
+              <img src="{{ asset(item.image) }}"  class="img__categorie" alt="">
+              </a>
+                <ion-card-header>
+                  <ion-card-subtitle>Nom</ion-card-subtitle>
+                  <ion-card-title>{{item.nom}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  {{item.description}}
+                </ion-card-content>
+                <div  class="container text-center">
+                  <ion-icon id="deteleCat" data-idcat="{{item.id}}" style="height: 35px;width:35px;color:red;" name="trash-outline"></ion-icon>
                 </div>
-                {% for item in categorie %}
-                <ion-card>
-                    <img src="{{item.image}}" class="img__categorie" />
-                    <ion-card-header>
-                      <ion-card-subtitle>Nom</ion-card-subtitle>
-                      <ion-card-title>{{item.nom}}</ion-card-title>
-                    </ion-card-header>
-                    <ion-card-content>
-                      Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
-                    </ion-card-content>
-                  </ion-card> 
-                {% endfor %}
-           </ion-content>
+              </ion-card> 
+              {% endfor %}
+            </ion-content>
           </ion-tab>
     
           <ion-tab tab="movies">
@@ -76,8 +140,38 @@
             </ion-header>
     
             <ion-content fullscreen class="ion-padding">
-                {{ include ("mobile_adminstration/produits.html.twig") }}            
-            </ion-content>
+              <p class="text-center"><strong>Les informations des categorie et produits</strong></p>
+              <h1 class="text-center">Categories</h1>
+              <div class="container text-right mb-3">
+                <ion-button size="large" type="button" data-toggle="modal" data-target="#addcatgorieinput">Ajouter</ion-button>
+             </div>
+             {% for item in categorieinput %}
+             <ion-card>
+                 <ion-card-header>
+                   <ion-card-subtitle>Nom</ion-card-subtitle>
+                   <ion-card-title>{{item.nom}}</ion-card-title>
+                 </ion-card-header>
+                 <div  class="container text-center">
+                   <ion-icon id="deteleCatInput" data-idcat="{{item.id}}" style="height: 35px;width:35px;color:red;" name="trash-outline"></ion-icon>
+                 </div>
+               </ion-card> 
+             {% endfor %}
+             <h1 class="text-center">Produits</h1>
+             <div class="container text-right mb-3">
+               <ion-button size="large" type="button" data-toggle="modal" data-target="#addproduitinput">Ajouter</ion-button>
+            </div>
+            {% for item in produitsinput %}
+            <ion-card>
+                <ion-card-header>
+                  <ion-card-subtitle>Nom</ion-card-subtitle>
+                  <ion-card-title>{{item.nom}}</ion-card-title>
+                </ion-card-header>
+                <div  class="container text-center">
+                  <ion-icon id="deteleProdInput" data-idcat="{{item.id}}" style="height: 35px;width:35px;color:red;" name="trash-outline"></ion-icon>
+                </div>
+              </ion-card> 
+            {% endfor %}
+              </ion-content>
           </ion-tab>
     
           <ion-tab tab="games">
@@ -94,43 +188,157 @@
     
           <ion-tab-bar slot="bottom">
             <ion-tab-button tab="music">
-              <ion-label>Music</ion-label>
-              <ion-icon name="musical-note"></ion-icon>
-            </ion-tab-button>
+              <ion-label>Catégorie</ion-label>
+              <ion-icon name="add-circle-outline"></ion-icon>
+              </ion-tab-button>
             <ion-tab-button tab="movies">
-              <ion-label>Movies</ion-label>
-              <ion-icon name="videocam"></ion-icon>
+              <ion-label>Produits</ion-label>
+              <ion-icon name="cart-outline"></ion-icon>            
             </ion-tab-button>
             <ion-tab-button tab="games">
-              <ion-label>Games</ion-label>
-              <ion-icon name="game-controller"></ion-icon>
+              <ion-label>Paramètres</ion-label>
+              <ion-icon name="cog-outline"></ion-icon>
             </ion-tab-button>
           </ion-tab-bar>
         </ion-tabs>
       </ion-app>
       <script>
-        console.log("yaya");
-      var btnSubmitCat=document.getElementById('savecategorie');
-      btnSubmitCat.addEventListener('click',function(e){
-          var nom=document.getElementById('nom');
-          let val=nom.value;
-          console.log(val);
-          let files = new FormData();
-          files.append('audio', $('#file')[0].files[0]);
-          console.log(files.get('audio'));
-          $.ajax({
+        $(document).ready(function(){
+          var url="http://127.0.0.1:8000/mobile/";
+          var btnSubmitCat=document.getElementById('savecategorie');
+          var btnSubmitCatInput=document.getElementById('savecategorieinput');
+          var btnSubmitProduitsInput=document.getElementById('saveproduitsinput');
+
+          $('#image-cat-name').hide();
+          $('#deteleCat').click(function (e) {
+            console.log(e);
+            console.log($('#deteleCat').attr('data-idcat'));
+            var formData= new FormData();
+            formData.append('id',$('#deteleCat').attr('data-idcat'));
+            $.ajax({
             type: 'post',
-            url: 'http://127.0.0.1:8000/yaya',
+            url: url+'removecategorie',
             processData: false,
             contentType: false,
-            data: files,
+            data: formData,
             success: function (response) {
                 console.log(response);
+                window.location.reload();
             },
             error: function (err) {
                 console.log(err);
             }
         });
-      })
+            })
+          $('#imga-cat').change(function(){
+            let a=$('#imga-cat')[0].files[0].name;
+            $('#nom-image').val(a)
+            $('#image-cat-name').show();
+          })
+          $('#deteleCatInput').click(function () {
+            console.log($('#deteleCatInput').attr('data-idcat'));
+            var formData= new FormData();
+            formData.append('id',$('#deteleCatInput').attr('data-idcat'));
+            $.ajax({
+            type: 'post',
+            url: url+'removecategorie',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (response) {
+                console.log(response);
+                window.location.reload();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+          })
+
+          $('#deteleProdInput').click(function () {
+            console.log($('#deteleProdInput').attr('data-idcat'));
+            var formData= new FormData();
+            formData.append('id',$('#deteleProdInput').attr('data-idcat'));
+            $.ajax({
+            type: 'post',
+            url: url+'removeproduits',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (response) {
+                console.log(response);
+                window.location.reload();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+          })
+
+
+          btnSubmitCatInput.addEventListener('click',function(e){
+            var nom=document.getElementById('nomInput');
+            var formData= new FormData();
+            formData.append('nom',nom.value);
+            $.ajax({
+            type: 'post',
+            url: url+'addinputcat',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (response) {
+                console.log(response);
+                window.location.reload();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+          })
+          btnSubmitProduitsInput.addEventListener('click',function(e){
+            var nom=document.getElementById('nomInputProduis');
+            var formData= new FormData();
+            formData.append('nom',nom.value);
+            $.ajax({
+            type: 'post',
+            url: url+'addinputproduits',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (response) {
+                console.log(response);
+                window.location.reload();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+          })
+          btnSubmitCat.addEventListener('click',function(e){
+            var nom=document.getElementById('nom');
+            var description=document.getElementById('description');
+            var formData= new FormData();
+            formData.append('nom',nom.value); 
+            formData.append('description',description.value);
+            formData.append('image',$('#imga-cat')[0].files[0]);
+            formData.append('nomImage',$('#nom-image').val()); 
+            $.ajax({
+            type: 'post',
+            url: url+'savecategorie',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (response) {
+                console.log(response);
+                window.location.reload();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+          })
+          
+        });
+
       </script>
 {% endblock %}

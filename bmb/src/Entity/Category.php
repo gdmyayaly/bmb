@@ -6,6 +6,8 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -16,26 +18,31 @@ class Category
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"list"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"list"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"list"})
      */
     private $image;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"list"})
      */
     private $position;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"list"})
      */
     private $slug;
 
@@ -43,6 +50,12 @@ class Category
      * @ORM\OneToMany(targetEntity=Produits::class, mappedBy="categorie")
      */
     private $produits;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"list"})
+     */
+    private $description;
 
     public function __construct()
     {
@@ -128,6 +141,18 @@ class Category
                 $produit->setCategorie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

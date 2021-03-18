@@ -10,6 +10,8 @@
         <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
         <link rel="stylesheet" href="../css/adminmobile.css">
+                <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
@@ -19,8 +21,6 @@
     </head>
     <body>
         {% block body %}{% endblock %}
-        <script src="../js/jquery-3.3.1.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
         {% block javascripts %}
         {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}

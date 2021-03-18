@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\CategoryRepository;
 use App\Repository\ProduitsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,8 +24,9 @@ class HomeController extends AbstractController
             'produit'=> $a
         ]);
     }
+
     /**
-     * @Route("/yaya")
+     * @Route("/yaya", name="yaya")
      */
     public function yaya(Request $request){
         $data=json_decode($request->getContent(),true);
